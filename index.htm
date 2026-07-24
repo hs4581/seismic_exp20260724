@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>全地球地球物理學互動學習網 | Whole Earth Geophysics</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1e3a8a;
+            --secondary: #0284c7;
+            --accent: #f59e0b;
+            --dark: #0f172a;
+            --light: #f8fafc;
+            --card-bg: #ffffff;
+            --border: #e2e8f0;
+            --success: #10b981;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Noto Sans TC', 'Outfit', sans-serif;
+            background-color: #f1f5f9;
+            color: var(--dark);
+            line-height: 1.7;
+        }
+
+        header {
+            background: linear-gradient(135deg, #1e3a8a 0%, #0f172a 100%);
+            color: white;
+            padding: 4rem 2rem 3rem 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent), var(--secondary), var(--success));
+        }
+
+        .header-content {
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        header h1 {
+            font-size: 2.75rem;
+            font-weight: 900;
+            margin-bottom: 1rem;
+            letter-spacing: -0.025em;
+        }
+
+        header p {
+            font-size: 1.2rem;
+            color: #cbd5e1;
+            font-weight: 300;
+        }
+
+        nav {
+            background: white;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            padding: 1rem;
+        }
+
+        nav a {
+            color: var(--dark);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.2s;
+            cursor: pointer;
+        }
+
+        nav a:hover {
+            color: var(--secondary);
+        }
+
+        main {
+            max-width: 1100px;
+            margin: 3rem auto;
+            padding: 0 1.5rem;
+            display: grid;
+            gap: 3rem;
+        }
+
+        section {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 2.5rem;
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.05);
+            border: 1px solid var(--border);
+            transition: transform 0.2s;
+        }
+
+        section:hover {
+            transform: translateY(-2px);
+        }
+
+        h2 {
+            font-size: 1.85rem;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            border-bottom: 2px solid var(--border);
+            padding-bottom: 0.75rem;
+        }
+
+        h3 {
+            font-size: 1.35rem;
+            color: var(--secondary);
+            margin: 1.5rem 0 0.75rem 0;
+        }
+
+        p, li {
+            margin-bottom: 1rem;
+            color: #334155;
+            font-size: 1.05rem;
+        }
+
+        ul {
+            padding-left: 1.5rem;
+        }
+
+        .highlight-box {
+            background: #eff6ff;
+            border-left: 4px solid var(--secondary);
+            padding: 1.25rem;
+            border-radius: 0 8px 8px 0;
+            margin: 1.5rem 0;
+        }
+
+        .analogy-box {
+            background: #fdf4ff;
+            border-left: 4px solid #d946ef;
+            padding: 1.25rem;
+            border-radius: 0 8px 8px 0;
+            margin: 1.5rem 0;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .card {
+            background: #f8fafc;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+        }
+
+        .card h4 {
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            font-size: 1.15rem;
+        }
+
+        /* Interactive Quiz Styles */
+        .quiz-container {
+            background: #f0fdf4;
+            border: 1px solid #bbf7d0;
+            border-radius: 12px;
+            padding: 2rem;
+            margin-top: 2rem;
+        }
+
+        .quiz-question {
+            font-weight: 700;
+            color: #065f46;
+            margin-bottom: 1rem;
+            font-size: 1.15rem;
+        }
+
+        .quiz-options {
+            display: grid;
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .quiz-btn {
+            background: white;
+            border: 1px solid #cbd5e1;
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            text-align: left;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.2s;
+        }
+
+        .quiz-btn:hover {
+            background: #e2e8f0;
+            border-color: #94a3b8;
+        }
+
+        .quiz-btn.correct {
+            background: #d1fae5;
+            border-color: #34d399;
+            color: #065f46;
+            font-weight: 600;
+        }
+
+        .quiz-btn.incorrect {
+            background: #fee2e2;
+            border-color: #f87171;
+            color: #991b1b;
+        }
+
+        .feedback {
+            margin-top: 1rem;
+            font-weight: 600;
+            padding: 0.75rem;
+            border-radius: 6px;
+            display: none;
+        }
+
+        footer {
+            text-align: center;
+            padding: 3rem;
+            color: #64748b;
+            font-size: 0.9rem;
+            background: #e2e8f0;
+            margin-top: 4rem;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="header-content">
+            <h1>🌍 全地球地球物理學速學網</h1>
+            <p>Whole Earth Geophysics: An Interactive Learning Portal based on Robert J. Lillie</p>
+        </div>
+    </header>
+
+    <nav>
+        <a href="#intro">1. 地球物理學概論</a>
+        <a href="#plates">2. 板塊構造運動</a>
+        <a href="#constraints">3. 地球科學限制</a>
+        <a href="#quiz">4. 互動隨堂測驗</a>
+    </nav>
+
+    <main>
+        <!-- Section 1: Intro -->
+        <section id="intro">
+            <h2>🔭 第一章：地球物理學概論 (Introduction)</h2>
+            <p>地質學（Geology）是視覺的藝術，我們透過在地表觀察露頭與構造，發揮想像力構築地底的奧祕。物理學（Physics）則透過精確的數學公式掌握物質與能量的互動規律。</p>
+            <p><strong>地球物理學（Geophysics）</strong>正是兩者的完美混血！我們站在地表敲敲打打（就像地質學家的岩石鎚），透過接收自然界或人工產生的物理訊號來「聆聽」地底深處的祕密。</p>
+
+            <div class="grid-2">
+                <div class="card">
+                    <h4>📡 地震學技術 (Seismic)</h4>
+                    <p>利用地震波或人工爆破產生的波速（Velocity, V）與衰減特性（Q值），探測地底斷層與構造。分為<strong>折射法（Refraction）</strong>與<strong>反射法（Reflection）</strong>。</p>
+                </div>
+                <div class="card">
+                    <h4>⚖️ 位場技術 (Potential Field)</h4>
+                    <p>包含<strong>重力測量（Gravity）</strong>與<strong>磁力測量（Magnetics）</strong>。透過重力異常尋找密度差異（$\Delta ho$），透過磁力探測地底岩石的磁化率與剩磁。</p>
+                </div>
+                <div class="card">
+                    <h4>🔥 熱流技術 (Heat Flow)</h4>
+                    <p>透過鑽孔量測地溫梯度（$\partial T / \partial z$）與熱傳導率（k），計算地球內部的熱流釋放速率（q）。沒有熱，地球內部將是一片死寂！</p>
+                </div>
+                <div class="card">
+                    <h4>🎯 解釋的三大層次 (Constraints)</h4>
+                    <p>解析地底不可直接觀測的區域時，必須遵循限制階層：<strong>Level 1（第一手直接證據：露頭、鑽心）</strong> > <strong>Level 2（地質圖、地球物理觀測）</strong> > <strong>Level 3（理論模型假設）</strong>。</p>
+                </div>
+            </div>
+
+            <div class="highlight-box">
+                <p><strong>💡 核心觀念：非唯一性 (Nonuniqueness)</strong><br>
+                如同「盲人摸象」，不同的地底密度或構造組合可能在表面產生完全相同的物理異常訊號。因此，結合多種地球物理方法與地質限制（Constraints）是獲得正確解釋的唯一解法！</p>
+            </div>
+        </section>
+
+        <!-- Section 2: Plate Tectonics -->
+        <section id="plates">
+            <h2>🌐 第二章：板塊構造運動 (Plate Tectonics)</h2>
+            <p>早期的「地槽理論（Geosynclinal Theory）」認為山脈是垂直升降造成的。直到近代板塊構造理論興起，我們才明白橫向的大規模水平位移才是形塑海洋、高山、火山與地震的關鍵驅動力！</p>
+
+            <h3 style="margin-top: 2rem;">🍰 地球的兩套核心劃分法</h3>
+            <div class="grid-2">
+                <div class="card" style="background: #fffbeb; border-color: #fde68a;">
+                    <h4>化學成分劃分（傳統）</h4>
+                    <ul>
+                        <li><strong>地殼（Crust）</strong>：矽酸鹽為主，密度 2~3 g/cm³。</li>
+                        <li><strong>地函（Mantle）</strong>：富含鐵鎂的矽酸鹽，密度 3.3~5.8 g/cm³。</li>
+                        <li><strong>地核（Core）</strong>：以鐵為主，平均密度 10.8 g/cm³。</li>
+                    </ul>
+                </div>
+                <div class="card" style="background: #f0fdf4; border-color: #bbf7d0;">
+                    <h4>物理狀態劃分（現代板塊理論）</h4>
+                    <ul>
+                        <li><strong>岩石圈（Lithosphere）</strong>：堅硬的固體（包含地殼與最上部地函）。</li>
+                        <li><strong>軟流圈（Asthenosphere）</strong>：具些微部分熔融的塑性軟弱層（就像奧利奧餅乾的夾心！）。</li>
+                        <li><strong>中氣圈（Mesosphere）</strong>：深部堅硬固體。</li>
+                        <li><strong>外核（液態）與 內核（固態）</strong>。</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="analogy-box">
+                <p><strong>🍪 趣味聯想：奧利奧餅乾模型 (Oreo Cookie Analogy)</strong><br>
+                把地球的上部地函與軟流圈想像成一塊奧利奧餅乾：頂部的硬餅乾是<strong>堅硬的岩石圈（Lithosphere）</strong>，中間軟軟的奶油夾心就是<strong>軟流圈（Asthenosphere）</strong>，巨大的岩石圈板塊就漂浮在軟流圈上緩慢移動（每年幾公分）！</p>
+            </div>
+
+            <h3>⚡ 三大板塊邊界類型</h3>
+            <div class="grid-2">
+                <div class="card">
+                    <h4>1. 張裂型邊界 (Divergent)</h4>
+                    <p>板塊相互遠離。張裂帶會造成張力、正斷層、地塹（如東非大裂谷、大西洋中洋脊），伴隨軟流圈減壓熔融產生的玄武岩火山活動。</p>
+                </div>
+                <div class="card">
+                    <h4>2. 聚合型邊界 (Convergent)</h4>
+                    <p>板塊相互碰撞。包含海-海隱沒帶、海-大陸隱沒帶（如安地斯山脈、喀斯喀特山脈）以及大陸碰撞帶（如喜馬拉雅山脈）。伴隨強烈地震與安山岩/流紋岩質火山。</p>
+                </div>
+                <div class="card">
+                    <h4>3. 轉形斷層邊界 (Transform)</h4>
+                    <p>板塊水平錯動，既不創造也不消滅板塊（如加州聖安德烈斯斷層）。有淺層地震，但通常沒有火山活動。</p>
+                </div>
+                <div class="card">
+                    <h4>🔥 熱點 (Hotspots)</h4>
+                    <p>位於板塊內部的固定深部地函熱柱（Plume），當板塊滑過熱點上方時會形成一連串火山島鏈（如夏威夷群島、黃石公園）。</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: Geophysical Constraints -->
+        <section id="constraints">
+            <h2>📊 第三章：地球物理學如何支持板塊構造？</h2>
+            <p>每一種地球物理技術都扮演著解構地球內部構造的關鍵拼圖：</p>
+            <ul>
+                <li><strong>地震折射法：</strong> 精準測量地殼厚度變化（如莫荷面 Moho），發現中洋脊地殼變薄、山脈下方地殼變厚。</li>
+                <li><strong>地震反射法：</strong> 描繪沉積盆地、張裂地塹、隱沒帶下插板塊與大陸碰撞的深部反射構造。</li>
+                <li><strong>地震活動性：</strong> 劃定板塊邊界；張裂與轉形邊界僅有淺震（&lt;100 km），而隱沒帶可深達 700 km！</li>
+                <li><strong>重力測量：</strong> 利用密度差異對重力的影響，驗證地殼的「均衡說（Isostasy）」，測繪山脈下方的低密度根部。</li>
+                <li><strong>磁力測量：</strong> 透過海底磁氣異常條帶記錄地磁反轉，成為證實海底擴張學說的最佳證據。</li>
+                <li><strong>熱流測量：</strong> 中洋脊與火山帶熱流極高（軟流圈逼近地表），隱沒帶與碰撞帶下方因深冷板塊下插而呈現低熱流。</li>
+            </ul>
+        </section>
+
+        <!-- Section 4: Interactive Quiz -->
+        <section id="quiz">
+            <h2>🧠 第四章：互動自我挑戰 (Daily Mock Quiz)</h2>
+            <p>測試您對地球物理與板塊構造基礎觀念的掌握程度！點選選項即可看解答。</p>
+
+            <div class="quiz-container">
+                <div class="quiz-question">Q1: 根據地函的物理狀態劃分，軟流圈（Asthenosphere）的主要特徵是什麼？</div>
+                <div class="quiz-options">
+                    <button class="quiz-btn" onclick="checkAnswer(this, false, 'q1')">A. 完全熔融的液體層，與外核性質相同</button>
+                    <button class="quiz-btn" onclick="checkAnswer(this, true, 'q1')">B. 具些微部分熔融（Partial Melt）、呈現塑性流動的固體軟弱層</button>
+                    <button class="quiz-btn" onclick="checkAnswer(this, false, 'q1')">C. 堅硬無比的高壓固體，屬於 mesosphere 的一部分</button>
+                    <button class="quiz-btn" onclick="checkAnswer(this, false, 'q1')">D. 富含鐵鎳金屬的化學分異層</button>
+                </div>
+                <div id="feedback-q1" class="feedback"></div>
+            </div>
+
+            <div class="quiz-container" style="margin-top: 1.5rem;">
+                <div class="quiz-question">Q2: 在地球物理資料解釋中，關於「非唯一性（Nonuniqueness）」的敘述何者正確？</div>
+                <div class="quiz-options">
+                    <button class="quiz-btn" onclick="checkAnswer(this, false, 'q2')">A. 代表所有的地球物理測量都只有一種標準答案</button>
+                    <button class="quiz-btn" onclick="checkAnswer(this, false, 'q2')">B. 代表露頭樣本（Level 1）是不準確的</button>
+                    <button class="quiz-btn" onclick="checkAnswer(this, true, 'q2')">C. 代表多種不同的地底構造模型可能產生相同的表面觀測物理異常，因此需要結合多重限制來解法</button>
+                    <button class="quiz-btn" onclick="checkAnswer(this, false, 'q2')">D. 代表正向建模（Forward Modeling）不需要任何地質假設</button>
+                </div>
+                <div id="feedback-q2" class="feedback"></div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>參考來源：Robert J. Lillie 《Whole Earth Geophysics》 Chapter 1 & 2 | 專為自然科學與地球物理學習設計之互動教學網頁</p>
+    </footer>
+
+    <script>
+        function checkAnswer(button, isCorrect, qId) {
+            const container = button.closest('.quiz-container');
+            const buttons = container.querySelectorAll('.quiz-btn');
+            const feedback = container.querySelector('#feedback-' + qId);
+
+            buttons.forEach(btn => {
+                btn.disabled = true;
+                if(btn === button) {
+                    btn.classList.add(isCorrect ? 'correct' : 'incorrect');
+                }
+            });
+
+            feedback.style.display = 'block';
+            if(isCorrect) {
+                feedback.style.background = '#d1fae5';
+                feedback.style.color = '#065f46';
+                feedback.innerHTML = '🎉 太棒了！回答正確！這正是核心概念所在。';
+            } else {
+                feedback.style.background = '#fee2e2';
+                feedback.style.color = '#991b1b';
+                feedback.innerHTML = '❌ 答錯囉！再複習一下前面的重點整理，你可以做得更好！';
+            }
+        }
+    </script>
+</body>
+</html>
